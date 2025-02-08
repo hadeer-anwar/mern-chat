@@ -5,7 +5,8 @@ import morgan from 'morgan'
 import cors from 'cors'
 import bodyParser from 'body-parser'
 import errorHandler from './middlewares/errorHandler.js'
-
+import cookieParser from 'cookie-parser'
+import userRouter from './routes/user.route.js'
 
 const app = express();
 
@@ -19,7 +20,7 @@ app.use(morgan("dev"));
 app.use(bodyParser.json({ limit: '10mb' }));
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 
-
+app.use(cookieParser());
 
 
 
@@ -29,6 +30,7 @@ app.get("/", (req, res) => {
   res.json({ message: "API is running..." });
 });
 
+app.use('/api',userRouter);
 
 
 // Error handling
